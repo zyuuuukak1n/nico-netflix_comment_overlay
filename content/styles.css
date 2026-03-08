@@ -1,0 +1,176 @@
+/* Netflix Layout Layout Isolation */
+html.niconet-active body,
+html.niconet-active #appMountPoint,
+html.niconet-active .nf-player-container,
+html.niconet-active .watch-video {
+  width: calc(100vw - 320px) !important;
+  max-width: calc(100vw - 320px) !important;
+}
+
+html.niconet-active {
+  overflow-x: hidden !important;
+}
+
+/* Sidebar Styles */
+#niconet-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 320px;
+  height: 100vh;
+  background: rgba(20, 20, 20, 0.95);
+  /* Dark background to cover Netflix UI */
+  color: #fff;
+  z-index: 2147483647;
+  /* Maximum possible z-index to stay above Netflix */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  border-left: 2px solid #e50914;
+  /* Netflix red border for aesthetic */
+  box-sizing: border-box;
+  opacity: 1;
+  pointer-events: auto;
+  /* Allow interactions */
+}
+
+#niconet-sidebar.niconet-hidden {
+  transform: translateX(100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+#niconet-sidebar-header {
+  padding: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+#niconet-sidebar-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #fff;
+}
+
+#niconet-toggle-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 24px;
+  line-height: 1;
+}
+
+#niconet-comment-list {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Custom scrollbar */
+#niconet-comment-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+#niconet-comment-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#niconet-comment-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 4px;
+}
+
+.niconet-comment-item {
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+  word-break: break-all;
+  display: flex;
+  align-items: flex-start;
+  padding: 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.niconet-comment-item .niconet-no {
+  color: #888;
+  font-size: 12px;
+  min-width: 30px;
+  margin-top: 1px;
+}
+
+.niconet-comment-item .niconet-user {
+  color: #bbb;
+  margin-right: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100px;
+  font-weight: bold;
+}
+
+.niconet-comment-item .niconet-text {
+  flex-grow: 1;
+  color: #fff;
+}
+
+#niconet-input-area {
+  padding: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+#niconet-comment-input {
+  flex-grow: 1;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.2s;
+  font-size: 14px;
+}
+
+#niconet-comment-input:focus {
+  border-color: #e50914;
+}
+
+#niconet-send-btn {
+  padding: 12px 20px;
+  background: #e50914;
+  border: none;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+#niconet-send-btn:hover {
+  background: #f40612;
+}
+
+/* Overlay Canvas */
+#niconet-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  /* width is managed by canvas.width in JS to perfectly match the video section */
+  pointer-events: none;
+  /* Let clicks pass through to Netflix controls */
+  z-index: 2147483646;
+  /* Just below sidebar */
+}

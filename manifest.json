@@ -1,0 +1,46 @@
+{
+    "manifest_version": 3,
+    "name": "Nico-Netflix WBC Overlay",
+    "version": "1.0",
+    "description": "Overlays Nico Nico Live comments onto Netflix video player.",
+    "permissions": [
+        "storage",
+        "scripting",
+        "tabs",
+        "activeTab"
+    ],
+    "host_permissions": [
+        "https://www.netflix.com/*",
+        "*://*.nicovideo.jp/*",
+        "*://*.nimg.jp/*"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://www.netflix.com/watch/*"
+            ],
+            "css": [
+                "content/styles.css"
+            ],
+            "js": [
+                "content/danmaku.js",
+                "content/ui.js",
+                "content/content.js"
+            ]
+        },
+        {
+            "matches": [
+                "https://live.nicovideo.jp/watch/*"
+            ],
+            "js": [
+                "content/nico_content.js"
+            ]
+        }
+    ],
+    "action": {
+        "default_popup": "popup/popup.html"
+    }
+}
